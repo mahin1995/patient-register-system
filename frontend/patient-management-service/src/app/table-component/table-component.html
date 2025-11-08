@@ -1,0 +1,56 @@
+<div class="relative overflow-x-auto">
+  <button
+    type="button"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+    (click)="goToForm()"
+  >
+    Create Patient Entry
+  </button>
+
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th class="px-6 py-3">Name</th>
+        <th class="px-6 py-3">Age</th>
+        <th class="px-6 py-3">Gender</th>
+        <th class="px-6 py-3">nextVisitDate</th>
+        <th class="px-6 py-3">prescriptionDate</th>
+        <th class="px-6 py-3">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (product of patients(); track product) {
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+        <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{ product.patientName }}
+        </th>
+        <td class="px-6 py-4">{{ product.patientAge }}</td>
+        <td class="px-6 py-4">{{ product.patientGender }}</td>
+        <td class="px-6 py-4">${{ product.nextVisitDate }}</td>
+        <td class="px-6 py-4">${{ product.prescriptionDate }}</td>
+        <td class="flex gap-1 px-6 py-4">
+          <button>
+            <span class="material-symbols-outlined cursor-pointer" (click)="edit(product)"
+              >edit</span
+            >
+          </button>
+
+          <button>
+            <span class="material-symbols-outlined cursor-pointer" (click)="delete(product)"
+              >delete</span
+            >
+          </button>
+          <button><span class="material-symbols-outlined"> info </span></button>
+        </td>
+      </tr>
+      }
+    </tbody>
+
+  </table>
+  <div class="pagination">
+  <button (click)="prevPage()" [disabled]="pageNumber === 0">Previous</button>
+  <span>Page {{ pageNumber + 1 }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="pageNumber + 1 >= totalPages">Next</button>
+</div>
+</div>

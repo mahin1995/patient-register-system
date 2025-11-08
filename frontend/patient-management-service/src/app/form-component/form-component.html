@@ -1,0 +1,71 @@
+<div class="container">
+  <h2>Prescription Form</h2>
+
+  <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
+    <!-- Prescription Date -->
+    <label>Prescription Date:</label>
+    <input type="date" formControlName="prescriptionDate" />
+    @if (prescriptionForm.get('prescriptionDate')?.touched &&
+    prescriptionForm.get('prescriptionDate')?.invalid) {
+    <div class="error">Prescription date is required.</div>
+    }
+    <!-- Patient Name -->
+    <label>Patient Name:</label>
+    <input type="text" formControlName="patientName" />
+    @if (prescriptionForm.get('patientName')?.touched &&
+    prescriptionForm.get('patientName')?.invalid) {
+    <div class="error">Patient name is required.</div>
+    }
+
+    <!-- Patient Age -->
+    <label>Patient Age:</label>
+    <input type="number" formControlName="patientAge" />
+    <div
+      *ngIf="
+        prescriptionForm.get('patientAge')?.touched && prescriptionForm.get('patientAge')?.invalid
+      "
+    >
+      <span *ngIf="prescriptionForm.get('patientAge')?.errors?.['required']">Age is required.</span>
+      <span *ngIf="prescriptionForm.get('patientAge')?.errors?.['min']"
+        >Age cannot be negative.</span
+      >
+      <span *ngIf="prescriptionForm.get('patientAge')?.errors?.['max']"
+        >Age cannot exceed 120.</span
+      >
+    </div>
+
+    <!-- Patient Gender -->
+    <label>Patient Gender:</label>
+    <select formControlName="patientGender">
+      <option value="">Select gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <div
+      *ngIf="
+        prescriptionForm.get('patientGender')?.touched &&
+        prescriptionForm.get('patientGender')?.invalid
+      "
+    >
+      Gender is required.
+    </div>
+
+    <!-- Diagnosis -->
+    <label>Diagnosis:</label>
+    <textarea formControlName="diagnosis" rows="3"></textarea>
+
+    <!-- Medicines -->
+    <label>Medicines:</label>
+    <textarea formControlName="medicines" rows="3"></textarea>
+
+    <!-- Next Visit Date -->
+    <label>Next Visit Date:</label>
+    <input type="date" formControlName="nextVisitDate" />
+
+    <br /><br />
+    <button type="submit" [disabled]="prescriptionForm.invalid">Submit</button>
+  </form>
+
+  <pre>{{ prescriptionForm.value | json }}</pre>
+</div>
