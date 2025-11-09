@@ -1,5 +1,8 @@
 <!-- <button (click)="toggleSidebar()">Toggle Sidebar</button> -->
-<div class="flex h-screen">
+ <div class="flex h-screen">
+         @if (!isLoginPageHave()) {
+
+
   <!-- Sidebar -->
   <!-- <aside id="default-sidebar"
        [class.-translate-x-full]="!sidebarOpen()"
@@ -27,10 +30,22 @@
           Patient List
         </a>
       </li>
+      <li>
+        <a
+          routerLink="/patient-list"
+          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+
+        </a>
+      </li>
     </ul>
   </aside>
 
   <!-- Main Content -->
+
+
+}
+
   <main class="flex-1 p-4 overflow-y-auto">
     <router-outlet></router-outlet>
   </main>
